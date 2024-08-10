@@ -6,13 +6,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/list"
+    <androidx.recyclerview.widget.RecyclerView android:id="@+id/list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         android:orientation="vertical"
-        android:paddingHorizontal="16dp"
+        android:padding="16dp"
         android:clipToPadding="false"
         tools:itemcount="5"
         tools:listitem="@layout/item_overview"
