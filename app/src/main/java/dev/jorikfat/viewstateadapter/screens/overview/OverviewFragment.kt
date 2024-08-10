@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import dev.jorikfat.viewstateadapter.Field
+import dev.jorikfat.viewstateadapter.models.field.Field
 import dev.jorikfat.viewstateadapter.databinding.LayoutOverviewsBinding
 
 class OverviewFragment : Fragment() {

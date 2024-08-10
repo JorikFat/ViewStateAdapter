@@ -1,4 +1,4 @@
-package dev.jorikfat.viewstateadapter
+package dev.jorikfat.viewstateadapter.models.field
 
 data class Field(
     val title :String,
