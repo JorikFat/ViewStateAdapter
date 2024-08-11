@@ -51,6 +51,8 @@ dependencies {
     testImplementation("androidx.arch.core:core-testing:2.1.0")
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+    androidTestImplementation("androidx.test:core-ktx:1.6.1")
+    androidTestImplementation("androidx.test.ext:junit-ktx:1.2.1")
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.4.0")
 }
