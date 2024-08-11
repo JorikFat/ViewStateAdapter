@@ -7,30 +7,27 @@ import android.widget.LinearLayout
 import androidx.lifecycle.LifecycleOwner
 import dev.jorikfat.viewstateadapter.databinding.ViewButtonsBinding
 
-class ButtonsView :LinearLayout {
+class ButtonsView : LinearLayout {
 
-    constructor(context :Context) :super(context)
-    constructor(context :Context, attrs :AttributeSet) :super(context, attrs)
+    constructor(context: Context) : super(context)
+    constructor(context: Context, attrs: AttributeSet) : super(context, attrs)
 
-    private val binding : ViewButtonsBinding = ViewButtonsBinding.inflate(LayoutInflater.from(context), this)
+    private val binding: ViewButtonsBinding =
+        ViewButtonsBinding.inflate(LayoutInflater.from(context), this)
 
     init {
         orientation = HORIZONTAL
     }
 
-    fun attach(owner :LifecycleOwner, data :ButtonsData){
+    fun attach(owner: LifecycleOwner, data: ButtonsData) {
         binding.skip.setOnClickListener { data.skip() }
-        when(data.value!!){
-            ButtonsViewState.Next -> {
-                binding.skip.text = "Далее"
-                binding.save.visibility = GONE
-            }
-            is ButtonsViewState.SkipSave -> {
-                binding.save.setOnClickListener { data.save() }
-            }
+        binding.save.setOnClickListener { data.save() }
+        if (data.value!! == ButtonsViewState.Next) {
+            binding.skip.text = "Далее"
+            binding.save.visibility = GONE
         }
-        data.observe(owner){ state ->
-            when(state){
+        data.observe(owner) { state ->
+            when (state) {
                 ButtonsViewState.Next -> { /* ignore */ }
                 is ButtonsViewState.SkipSave -> binding.save.isEnabled = state.saveEnable
             }

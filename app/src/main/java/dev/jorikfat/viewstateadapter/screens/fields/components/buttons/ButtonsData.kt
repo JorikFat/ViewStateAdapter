@@ -10,7 +10,10 @@ class ButtonsData(initial :ButtonsViewState) :MutableLiveData<ButtonsViewState>(
 
     fun skip() = callbacks?.skip()
 
-    fun save() = callbacks?.save()
+    fun save() {
+        if(value!! == ButtonsViewState.Next) return
+        callbacks?.save()
+    }
 
     interface Callbacks {
         fun skip()

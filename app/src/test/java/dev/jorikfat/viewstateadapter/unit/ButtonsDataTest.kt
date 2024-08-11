@@ -27,20 +27,34 @@ class ButtonsDataTest {
 
     @Test
     fun listenCallbacks(){
-        val mockUnusedCallback = Mockito.mock(ButtonsData.Callbacks::class.java)
-        val nullCallbacks = ButtonsData(ButtonsViewState.Next)
-        nullCallbacks.save()
-        Mockito.verify(mockUnusedCallback, Mockito.never()).save()
-        nullCallbacks.skip()
-        Mockito.verify(mockUnusedCallback, Mockito.never()).skip()
-
-        val listenableData = ButtonsData(ButtonsViewState.Next)
+        val data = ButtonsData(ButtonsViewState.SkipSave(false))
         val mockCallback = Mockito.mock(ButtonsData.Callbacks::class.java)
-        listenableData.callbacks = mockCallback
-        listenableData.save()
+        data.callbacks = mockCallback
+        data.save()
         Mockito.verify(mockCallback).save()
-        listenableData.skip()
+        data.skip()
         Mockito.verify(mockCallback).save()
+    }
+
+    @Test
+    fun ignoreCallback(){
+        val mockCallback = Mockito.mock(ButtonsData.Callbacks::class.java)
+        val data = ButtonsData(ButtonsViewState.Next)
+        data.save()
+        Mockito.verify(mockCallback, Mockito.never()).save()
+        data.skip()
+        Mockito.verify(mockCallback, Mockito.never()).skip()
+    }
+
+    @Test
+    fun ignoreSaveCallback(){
+        val data = ButtonsData(ButtonsViewState.Next)
+        val mockCallback = Mockito.mock(ButtonsData.Callbacks::class.java)
+        data.callbacks = mockCallback
+        data.save()
+        Mockito.verify(mockCallback, Mockito.never()).save()
+        data.skip()
+        Mockito.verify(mockCallback).skip()
     }
 
     @Test
