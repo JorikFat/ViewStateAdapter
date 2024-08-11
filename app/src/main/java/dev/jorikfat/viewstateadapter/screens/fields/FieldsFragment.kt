@@ -7,7 +7,9 @@ import androidx.core.os.bundleOf
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.get
 import dev.jorikfat.viewstateadapter.R
+import dev.jorikfat.viewstateadapter.createRectangle
 import dev.jorikfat.viewstateadapter.databinding.LayoutFieldsBinding
+import dev.jorikfat.viewstateadapter.dp
 import dev.jorikfat.viewstateadapter.models.form.Form
 import dev.jorikfat.viewstateadapter.screens.BaseFragment
 import dev.jorikfat.viewstateadapter.screens.overview.OverviewFragment
@@ -33,6 +35,7 @@ class FieldsFragment() : BaseFragment<LayoutFieldsBinding>() {
             it.map { viewAdapter.toView(it) }
                 .forEach { layout.fields.addView(it) }
         }
+        layout.fields.dividerDrawable = createRectangle(0, 16.dp)
         layout.save.setOnClickListener {
             parentFragmentManager.beginTransaction()
                 .replace(R.id.container, OverviewFragment(viewModel.form))

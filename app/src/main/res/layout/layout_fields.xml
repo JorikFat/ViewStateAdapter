@@ -12,6 +12,7 @@
         android:layout_weight="1"
         android:orientation="vertical"
         android:paddingHorizontal="16dp"
+        android:showDividers="middle"
         />
 
     <Button android:id="@+id/save"
