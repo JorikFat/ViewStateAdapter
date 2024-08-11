@@ -15,26 +15,32 @@
         android:showDividers="middle"
         />
 
-    <LinearLayout
+    <dev.jorikfat.viewstateadapter.screens.fields.components.buttons.ButtonsView
+        android:id="@+id/buttons"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        >
+        />
 
-        <Button android:id="@+id/skip"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:text="Пропустить"
-            />
+<!--    <LinearLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:orientation="horizontal"-->
+<!--        >-->
 
-        <Button android:id="@+id/save"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:text="Сохранить"
-            />
-    </LinearLayout>
+<!--        <Button android:id="@+id/skip"-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_weight="1"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="Пропустить"-->
+<!--            />-->
+
+<!--        <Button android:id="@+id/save"-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_weight="1"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="Сохранить"-->
+<!--            />-->
+<!--    </LinearLayout>-->
 
 
 </LinearLayout>

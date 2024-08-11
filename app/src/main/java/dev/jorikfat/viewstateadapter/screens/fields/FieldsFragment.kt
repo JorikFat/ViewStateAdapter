@@ -19,7 +19,9 @@ class FieldsFragment() : BaseFragment<LayoutFieldsBinding>() {
         val factory = FieldsViewModel.Factory(proxy.fieldsHost, title)
         ViewModelProvider(this, factory).get()
     }
-    private val viewAdapter : FieldsViewAdapter by lazy { FieldsViewAdapter(requireContext()) }
+    private val viewAdapter : FieldsViewAdapter by lazy {
+        FieldsViewAdapter(requireContext(), viewModel.fieldsData::updateValue)
+    }
 
     constructor(form :Form) :this(){
         arguments = bundleOf("title" to form.title)
@@ -37,7 +39,8 @@ class FieldsFragment() : BaseFragment<LayoutFieldsBinding>() {
             it.map(viewAdapter::toView)
                 .forEach(layout.fields::addView)
         }
-        layout.save.setOnClickListener { viewModel.save() }
-        layout.skip.setOnClickListener { viewModel.skip() }
+        layout.buttons.attach(this, viewModel.buttonsData)
+//        layout.save.setOnClickListener { viewModel.save() }
+//        layout.skip.setOnClickListener { viewModel.skip() }
     }
 }

@@ -12,8 +12,12 @@ class FieldEditView :LinearLayout {
 
     constructor(context :Context) :super(context)
     constructor(context :Context, attrs : AttributeSet) :super(context, attrs)
-    constructor(context :Context, state : FieldViewState.Edit) :super(context) {
-        setState(state)
+    constructor(
+        context :Context,
+        state : FieldViewState.Edit,
+        watcher :(FieldViewState.Edit, String)->Unit
+    ) :super(context) {
+        setState(state, watcher)
     }
 
     private val binding : ViewFieldEditBinding = ViewFieldEditBinding.inflate(LayoutInflater.from(context), this)
@@ -23,10 +27,11 @@ class FieldEditView :LinearLayout {
     }
 
     fun setState(
-        state :FieldViewState.Edit
+        state :FieldViewState.Edit,
+        watcher :(FieldViewState.Edit, String)->Unit
     ){
         binding.title.text = state.title
         binding.value.setText(state.value)
-        binding.value.addTextChangedListener(SimpleWatcher {state.value = it })
+        binding.value.addTextChangedListener(SimpleWatcher { watcher.invoke(state, it) })
     }
 }
