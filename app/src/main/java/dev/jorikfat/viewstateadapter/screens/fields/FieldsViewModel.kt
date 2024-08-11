@@ -6,19 +6,32 @@ import dev.jorikfat.viewstateadapter.models.form.Form
 import dev.jorikfat.viewstateadapter.stubForms
 
 class FieldsViewModel(
-    private val formTitle : String
+    private val host :Host,
+    formTitle : String,
+
 ) : ViewModel(){
 
     @Suppress("UNCHECKED_CAST")
-    class Factory(private val formTitle :String) :ViewModelProvider.Factory {
+    class Factory(
+        private val host :Host,
+        private val formTitle :String
+    ) :ViewModelProvider.Factory {
         override fun <T : ViewModel> create(modelClass: Class<T>): T =
-            FieldsViewModel(formTitle) as T
+            FieldsViewModel(host, formTitle) as T
     }
 
     val form :Form = stubForms.first { it.title == formTitle }
     val fieldsData = FieldsData(form.fields)
 
-    init {
+    fun save() {
+        host.complete(form)
+    }
 
+    interface Host {
+        fun complete(form :Form)
+
+        interface Proxy {
+            val fieldsHost :Host
+        }
     }
 }

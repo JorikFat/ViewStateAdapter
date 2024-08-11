@@ -6,17 +6,17 @@ import android.view.View
 import androidx.core.os.bundleOf
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.get
-import dev.jorikfat.viewstateadapter.R
 import dev.jorikfat.viewstateadapter.createRectangle
 import dev.jorikfat.viewstateadapter.databinding.LayoutFieldsBinding
 import dev.jorikfat.viewstateadapter.dp
 import dev.jorikfat.viewstateadapter.models.form.Form
 import dev.jorikfat.viewstateadapter.screens.BaseFragment
-import dev.jorikfat.viewstateadapter.screens.overview.OverviewFragment
 
 class FieldsFragment() : BaseFragment<LayoutFieldsBinding>() {
     private val viewModel :FieldsViewModel by lazy {
-        ViewModelProvider(this, FieldsViewModel.Factory(title)).get()
+        val proxy = requireActivity() as FieldsViewModel.Host.Proxy
+        val factory = FieldsViewModel.Factory(proxy.fieldsHost, title)
+        ViewModelProvider(this, factory).get()
     }
     private val viewAdapter :FieldsViewAdapter by lazy { FieldsViewAdapter(requireContext()) }
 
@@ -37,10 +37,11 @@ class FieldsFragment() : BaseFragment<LayoutFieldsBinding>() {
         }
         layout.fields.dividerDrawable = createRectangle(0, 16.dp)
         layout.save.setOnClickListener {
-            parentFragmentManager.beginTransaction()
-                .replace(R.id.container, OverviewFragment(viewModel.form))
-                .addToBackStack(null)
-                .commit()
+            viewModel.save()
+//            parentFragmentManager.beginTransaction()
+//                .replace(R.id.container, OverviewFragment(viewModel.form))
+//                .addToBackStack(null)
+//                .commit()
         }
     }
 }
