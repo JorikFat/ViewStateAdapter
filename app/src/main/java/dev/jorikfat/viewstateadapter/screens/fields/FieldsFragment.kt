@@ -38,5 +38,6 @@ class FieldsFragment() : BaseFragment<LayoutFieldsBinding>() {
                 .forEach(layout.fields::addView)
         }
         layout.save.setOnClickListener { viewModel.save() }
+        layout.skip.setOnClickListener { viewModel.skip() }
     }
 }

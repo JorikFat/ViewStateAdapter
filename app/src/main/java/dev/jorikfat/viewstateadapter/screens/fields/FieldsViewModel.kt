@@ -28,6 +28,10 @@ class FieldsViewModel(
         host.complete(Form(form.title, fieldsData.fields))
     }
 
+    fun skip() {
+        host.complete(form)
+    }
+
     interface Host {
         fun complete(form :Form)
 
