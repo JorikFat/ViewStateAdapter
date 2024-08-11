@@ -11,10 +11,10 @@ import androidx.lifecycle.get
 import dev.jorikfat.viewstateadapter.R
 import dev.jorikfat.viewstateadapter.databinding.LayoutFieldsBinding
 import dev.jorikfat.viewstateadapter.models.form.Form
+import dev.jorikfat.viewstateadapter.screens.BaseFragment
 import dev.jorikfat.viewstateadapter.screens.overview.OverviewFragment
 
-class FieldsFragment() : Fragment() {
-    private val layout by lazy { LayoutFieldsBinding.inflate(layoutInflater) }
+class FieldsFragment() : BaseFragment<LayoutFieldsBinding>() {
     private val title : String by lazy { requireArguments().getString("title")!! }
     private val viewModel :FieldsViewModel by lazy {
         ViewModelProvider(this, FieldsViewModel.Factory(title)).get()
@@ -25,11 +25,8 @@ class FieldsFragment() : Fragment() {
         arguments = bundleOf("title" to form.title)
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View = layout.root
+    override fun createLayout(layoutInflater: LayoutInflater): LayoutFieldsBinding =
+        LayoutFieldsBinding.inflate(layoutInflater)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -37,7 +34,6 @@ class FieldsFragment() : Fragment() {
         viewModel.fieldsData.observe(viewLifecycleOwner){
             it.map { viewAdapter.toView(it) }
                 .forEach { layout.fields.addView(it) }
-//            viewAdapter.toView()
         }
         layout.save.setOnClickListener {
             parentFragmentManager.beginTransaction()

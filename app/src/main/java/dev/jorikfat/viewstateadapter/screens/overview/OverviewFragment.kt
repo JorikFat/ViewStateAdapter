@@ -8,11 +8,10 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import dev.jorikfat.viewstateadapter.databinding.LayoutOverviewsBinding
 import dev.jorikfat.viewstateadapter.models.form.Form
+import dev.jorikfat.viewstateadapter.screens.BaseFragment
 import dev.jorikfat.viewstateadapter.stubForms
 
-class OverviewFragment() : Fragment() {
-
-    private val layout by lazy { LayoutOverviewsBinding.inflate(layoutInflater) }
+class OverviewFragment() : BaseFragment<LayoutOverviewsBinding>() {
     private val form :Form by lazy {
         stubForms.first {
             it.title == requireArguments().getString("title")
@@ -23,11 +22,8 @@ class OverviewFragment() : Fragment() {
         arguments = bundleOf("title" to form.title)
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ) = layout.root
+    override fun createLayout(layoutInflater: LayoutInflater): LayoutOverviewsBinding =
+        LayoutOverviewsBinding.inflate(layoutInflater)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
