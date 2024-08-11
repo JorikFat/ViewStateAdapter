@@ -13,9 +13,10 @@ class FormsFragment : BaseFragment<LayoutListBinding>() {
     override fun createLayout(layoutInflater: LayoutInflater): LayoutListBinding =
         LayoutListBinding.inflate(layoutInflater)
 
+    override val title: String = "Формы"
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        requireActivity().title = "Формы"
         layout.list.adapter = FormsAdapter(stubForms){
             parentFragmentManager.beginTransaction()
                 .replace(R.id.container, FieldsFragment(it))

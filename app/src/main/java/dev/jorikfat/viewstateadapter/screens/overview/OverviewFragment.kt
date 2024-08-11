@@ -3,9 +3,7 @@ package dev.jorikfat.viewstateadapter.screens.overview
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.core.os.bundleOf
-import androidx.fragment.app.Fragment
 import dev.jorikfat.viewstateadapter.databinding.LayoutOverviewsBinding
 import dev.jorikfat.viewstateadapter.models.form.Form
 import dev.jorikfat.viewstateadapter.screens.BaseFragment
@@ -22,12 +20,13 @@ class OverviewFragment() : BaseFragment<LayoutOverviewsBinding>() {
         arguments = bundleOf("title" to form.title)
     }
 
+    override val title: String get() = form.title
+
     override fun createLayout(layoutInflater: LayoutInflater): LayoutOverviewsBinding =
         LayoutOverviewsBinding.inflate(layoutInflater)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        requireActivity().title = form.title
         layout.list.adapter = OverviewAdapter(form.fields)
     }
 }
