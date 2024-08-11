@@ -11,6 +11,7 @@ import dev.jorikfat.viewstateadapter.databinding.LayoutFieldsBinding
 import dev.jorikfat.viewstateadapter.dp
 import dev.jorikfat.viewstateadapter.models.form.Form
 import dev.jorikfat.viewstateadapter.screens.BaseFragment
+import dev.jorikfat.viewstateadapter.screens.fields.ui.FieldsViewAdapter
 
 class FieldsFragment() : BaseFragment<LayoutFieldsBinding>() {
     private val viewModel :FieldsViewModel by lazy {
@@ -18,7 +19,7 @@ class FieldsFragment() : BaseFragment<LayoutFieldsBinding>() {
         val factory = FieldsViewModel.Factory(proxy.fieldsHost, title)
         ViewModelProvider(this, factory).get()
     }
-    private val viewAdapter :FieldsViewAdapter by lazy { FieldsViewAdapter(requireContext()) }
+    private val viewAdapter : FieldsViewAdapter by lazy { FieldsViewAdapter(requireContext()) }
 
     constructor(form :Form) :this(){
         arguments = bundleOf("title" to form.title)
@@ -31,17 +32,11 @@ class FieldsFragment() : BaseFragment<LayoutFieldsBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.fieldsData.observe(viewLifecycleOwner){
-            it.map { viewAdapter.toView(it) }
-                .forEach { layout.fields.addView(it) }
-        }
         layout.fields.dividerDrawable = createRectangle(0, 16.dp)
-        layout.save.setOnClickListener {
-            viewModel.save()
-//            parentFragmentManager.beginTransaction()
-//                .replace(R.id.container, OverviewFragment(viewModel.form))
-//                .addToBackStack(null)
-//                .commit()
+        viewModel.fieldsData.observe(viewLifecycleOwner){
+            it.map(viewAdapter::toView)
+                .forEach(layout.fields::addView)
         }
+        layout.save.setOnClickListener { viewModel.save() }
     }
 }

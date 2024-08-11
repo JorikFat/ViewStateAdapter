@@ -7,17 +7,14 @@ import androidx.core.os.bundleOf
 import dev.jorikfat.viewstateadapter.databinding.LayoutOverviewsBinding
 import dev.jorikfat.viewstateadapter.models.form.Form
 import dev.jorikfat.viewstateadapter.screens.BaseFragment
-import dev.jorikfat.viewstateadapter.stubForms
 
 class OverviewFragment() : BaseFragment<LayoutOverviewsBinding>() {
-    private val form :Form by lazy {
-        stubForms.first {
-            it.title == requireArguments().getString("title")
-        }
+    private val form : FormParcelable by lazy {
+        requireArguments().getParcelable("form")!!
     }
 
     constructor(form :Form) :this(){
-        arguments = bundleOf("title" to form.title)
+        arguments = bundleOf("form" to FormParcelable(form))
     }
 
     override val title: String get() = form.title

@@ -13,7 +13,7 @@ val stubForm = Form("Заглушка", stubFields)
 val stubForms = listOf(
     stubForm,
     Form("Вторая форма", listOf(
-        Field("Первое поле", "Значение 1", false),
-        Field("Второе поле", "Значение 2", false),
+        Field("Первое поле", "Значение 1", true),
+        Field("Второе поле", "Значение 2", true),
     ))
 )

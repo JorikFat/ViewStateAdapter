@@ -3,6 +3,7 @@ package dev.jorikfat.viewstateadapter.screens.fields
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import dev.jorikfat.viewstateadapter.models.form.Form
+import dev.jorikfat.viewstateadapter.screens.fields.presentation.FieldsData
 import dev.jorikfat.viewstateadapter.stubForms
 
 class FieldsViewModel(
@@ -24,7 +25,7 @@ class FieldsViewModel(
     val fieldsData = FieldsData(form.fields)
 
     fun save() {
-        host.complete(form)
+        host.complete(Form(form.title, fieldsData.fields))
     }
 
     interface Host {
