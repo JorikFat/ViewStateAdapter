@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import dev.jorikfat.viewstateadapter.R
 import dev.jorikfat.viewstateadapter.databinding.LayoutListBinding
+import dev.jorikfat.viewstateadapter.screens.fields.FieldsFragment
 import dev.jorikfat.viewstateadapter.screens.overview.OverviewFragment
 import dev.jorikfat.viewstateadapter.stubForms
 
@@ -24,7 +25,7 @@ class FormsFragment : Fragment() {
         requireActivity().title = "Формы"
         layout.list.adapter = FormsAdapter(stubForms){
             parentFragmentManager.beginTransaction()
-                .replace(R.id.container, OverviewFragment(it))
+                .replace(R.id.container, FieldsFragment(it))
                 .addToBackStack(null)
                 .commit()
         }
