@@ -20,16 +20,19 @@ class ButtonsView :LinearLayout {
 
     fun attach(owner :LifecycleOwner, data :ButtonsData){
         binding.skip.setOnClickListener { data.skip() }
-        if(data.value!! is ButtonsViewState.Mutable){
-            binding.save.setOnClickListener { data.save() }
+        when(data.value!!){
+            ButtonsViewState.Next -> {
+                binding.skip.text = "Далее"
+                binding.save.visibility = GONE
+            }
+            is ButtonsViewState.SkipSave -> {
+                binding.save.setOnClickListener { data.save() }
+            }
         }
         data.observe(owner){ state ->
             when(state){
-                ButtonsViewState.Fixed -> {
-                    binding.skip.text = "Далее"
-                    binding.save.visibility = GONE
-                }
-                is ButtonsViewState.Mutable -> binding.save.isEnabled = state.saveEnable
+                ButtonsViewState.Next -> { /* ignore */ }
+                is ButtonsViewState.SkipSave -> binding.save.isEnabled = state.saveEnable
             }
         }
     }

@@ -27,8 +27,8 @@ class FieldsViewModel(
     val form: Form = stubForms.first { it.title == formTitle }
     val fieldsData = FieldsData(form.fields)
     val buttonsData = ButtonsData(
-        if (form.fields.any { it.editable }) ButtonsViewState.Mutable(false)
-        else ButtonsViewState.Fixed
+        if (form.fields.any { it.editable }) ButtonsViewState.SkipSave(false)
+        else ButtonsViewState.Next
     )
 
     init {

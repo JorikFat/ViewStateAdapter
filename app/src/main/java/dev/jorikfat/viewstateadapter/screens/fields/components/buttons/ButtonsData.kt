@@ -6,7 +6,7 @@ class ButtonsData(initial :ButtonsViewState) :MutableLiveData<ButtonsViewState>(
     var callbacks :Callbacks? = null
 
     fun show(saveEnable :Boolean) =
-        postValue(ButtonsViewState.Mutable(saveEnable))
+        postValue(ButtonsViewState.SkipSave(saveEnable))
 
     fun skip() = callbacks?.skip()
 
